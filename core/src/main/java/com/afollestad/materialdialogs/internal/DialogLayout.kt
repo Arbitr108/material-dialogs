@@ -31,7 +31,6 @@ internal class DialogLayout(
     set(value) {
       if (field == value) return
       field = value
-      requestLayout()
     }
   var debugMode: Boolean = false
 

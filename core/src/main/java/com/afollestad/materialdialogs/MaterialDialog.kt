@@ -38,11 +38,12 @@ enum class Theme(@StyleRes val styleRes: Int) {
 /** @author Aidan Follestad (afollestad) */
 class MaterialDialog(
   context: Context,
-  internal var theme: Theme = Theme.LIGHT
+  internal val theme: Theme = Theme.LIGHT
 ) : Dialog(context, theme.styleRes) {
 
   internal val view: DialogLayout = inflate(context, R.layout.md_dialog_base)
-  internal var autoDismiss = true
+  internal var autoDismiss: Boolean = true
+    private set
 
   internal var textViewMessage: TextView? = null
   internal var contentScrollView: DialogScrollView? = null
