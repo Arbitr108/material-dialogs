@@ -47,7 +47,7 @@ import kotlinx.android.synthetic.main.activity_main.single_choice_long_items
 /** @author Aidan Follestad (afollestad) */
 class MainActivity : AppCompatActivity() {
 
-  private val debugMode = false
+  private val debugMode = true
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)

@@ -20,12 +20,17 @@ internal class DialogActionButtonLayout(
   attrs: AttributeSet? = null
 ) : BaseSubLayout(context, attrs) {
 
+  companion object {
+    const val INDEX_POSITIVE = 0
+    const val INDEX_NEGATIVE = 1
+    const val INDEX_NEUTRAL = 2
+  }
+
   private val buttonHeightDefault = dimenPx(R.dimen.md_action_button_height)
   private val buttonHeightStacked = dimenPx(R.dimen.md_stacked_action_button_height)
   private val buttonFramePadding = dimenPx(R.dimen.md_action_button_frame_padding)
   private val buttonSpacing = dimenPx(R.dimen.md_action_button_spacing)
 
-  private lateinit var actionButtons: Array<DialogActionButton>
   private var stackButtons: Boolean = false
     set(value) {
       if (field == value) return
@@ -33,6 +38,7 @@ internal class DialogActionButtonLayout(
       requestLayout()
     }
 
+  lateinit var actionButtons: Array<DialogActionButton>
   val visibleButtons: Array<DialogActionButton>
     get() = actionButtons.filter { it.isVisible() }
         .toTypedArray()
@@ -116,13 +122,12 @@ internal class DialogActionButtonLayout(
     }
 
     if (drawDivider) {
-      dividerPaint.color = getDividerColor()
       canvas.drawLine(
           0f,
           0f,
           measuredWidth.toFloat(),
           dividerHeight.toFloat(),
-          dividerPaint
+          dividerPaint()
       )
     }
   }

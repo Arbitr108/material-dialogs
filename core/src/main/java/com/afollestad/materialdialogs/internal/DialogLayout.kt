@@ -35,6 +35,7 @@ internal class DialogLayout(
   var debugMode: Boolean = false
 
   private val frameMarginVertical = dimenPx(R.dimen.md_dialog_frame_margin_vertical)
+  private val frameMarginVerticalLess = dimenPx(R.dimen.md_dialog_frame_margin_vertical_less)
   private val contentView: View
     get() = rootLayout.getChildAt(1)
 
@@ -92,9 +93,16 @@ internal class DialogLayout(
     )
 
     if (titleLayout.shouldNotBeVisible()) {
-      contentView.updatePadding(
-          top = frameMarginVertical
-      )
+      if (buttonsLayout.visibleButtons.isEmpty()) {
+        contentView.updatePadding(
+            top = frameMarginVerticalLess,
+            bottom = frameMarginVerticalLess
+        )
+      } else {
+        contentView.updatePadding(
+            top = frameMarginVertical
+        )
+      }
     }
 
     val totalHeight = titleLayout.measuredHeight +
@@ -134,9 +142,9 @@ internal class DialogLayout(
     )
 
     val contentLeft = 0
-    val contentTop = titleBottom + 1
+    val contentTop = titleBottom
     val contentRight = measuredWidth
-    val contentBottom = buttonsTop - 1
+    val contentBottom = buttonsTop
 
     contentView.layout(
         contentLeft,

@@ -3,7 +3,6 @@ package com.afollestad.materialdialogs.extensions
 import android.graphics.drawable.Drawable
 import android.support.annotation.ArrayRes
 import android.support.annotation.DrawableRes
-import android.support.annotation.IdRes
 import android.support.annotation.StringRes
 import android.support.v4.content.ContextCompat
 import android.view.View
@@ -29,11 +28,10 @@ internal fun MaterialDialog.hasActionButtons(): Boolean {
 }
 
 internal fun MaterialDialog.setIcon(
-  @IdRes viewId: Int,
+  imageView: ImageView,
   @DrawableRes iconRes: Int,
   icon: Drawable?
 ) {
-  val imageView = view.findViewById<ImageView>(viewId)
   val drawable = getDrawable(iconRes, icon)
   if (drawable != null) {
     (imageView.parent as View).visibility = View.VISIBLE
@@ -45,13 +43,12 @@ internal fun MaterialDialog.setIcon(
 }
 
 internal fun MaterialDialog.setText(
-  @IdRes viewId: Int,
+  textView: TextView,
   @StringRes textRes: Int = 0,
   text: CharSequence? = null,
   @StringRes fallback: Int = 0,
   click: ((MaterialDialog) -> (Unit))? = null
 ) {
-  val textView = view.findViewById<TextView>(viewId)
   val value = text ?: getString(textRes, fallback)
   if (value != null) {
     (textView.parent as View).visibility = View.VISIBLE

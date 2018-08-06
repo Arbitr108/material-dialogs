@@ -1,4 +1,4 @@
-<!-- See http://www.google.com/design/spec/components/dialogs.html#dialogs-specs -->
+<!-- See https://material.io/archive/guidelines/components/dialogs.html#dialogs-specs -->
 <resources>
 
   <dimen name="md_dialog_bg_corner_radius">2dp</dimen>
@@ -6,7 +6,9 @@
   <dimen name="md_dialog_vertical_margin">52dp</dimen>
   <dimen name="md_dialog_horizontal_margin">28dp</dimen>
 
-  <dimen name="md_dialog_frame_margin_vertical">20dp</dimen>
+  <dimen name="md_dialog_title_layout_margin_bottom">20dp</dimen>
+  <dimen name="md_dialog_frame_margin_vertical">24dp</dimen>
+  <dimen name="md_dialog_frame_margin_vertical_less">16dp</dimen>
   <dimen name="md_dialog_frame_margin_horizontal">24dp</dimen>
 
   <dimen name="md_action_button_frame_padding">8dp</dimen>
@@ -24,7 +26,8 @@
   <dimen name="md_title_textsize">20sp</dimen>
   <dimen name="md_message_textsize">16sp</dimen>
 
-  <dimen name="md_icon_margin">16dp</dimen>
+  <dimen name="md_icon_margin">12dp</dimen>
+  <dimen name="md_icon_size">42dp</dimen>
 
   <dimen name="md_listitem_vertical_margin">12dp</dimen>
   <dimen name="md_listitem_vertical_margin_choice">8dp</dimen>

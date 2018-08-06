@@ -18,6 +18,9 @@ import com.afollestad.materialdialogs.extensions.setText
 import com.afollestad.materialdialogs.extensions.setWindowConstraints
 import com.afollestad.materialdialogs.internal.DialogLayout
 import com.afollestad.materialdialogs.internal.DialogScrollView
+import com.afollestad.materialdialogs.internal.button.DialogActionButtonLayout.Companion.INDEX_NEGATIVE
+import com.afollestad.materialdialogs.internal.button.DialogActionButtonLayout.Companion.INDEX_NEUTRAL
+import com.afollestad.materialdialogs.internal.button.DialogActionButtonLayout.Companion.INDEX_POSITIVE
 import com.afollestad.materialdialogs.internal.list.DialogRecyclerView
 
 typealias DialogCallback = (MaterialDialog) -> Unit
@@ -63,7 +66,11 @@ class MaterialDialog(
     icon: Drawable? = null
   ): MaterialDialog {
     assertOneSet(iconRes, icon)
-    setIcon(R.id.md_icon_title, iconRes, icon)
+    setIcon(
+        view.titleLayout.iconView,
+        iconRes = iconRes,
+        icon = icon
+    )
     return this
   }
 
@@ -73,7 +80,11 @@ class MaterialDialog(
     text: CharSequence? = null
   ): MaterialDialog {
     assertOneSet(textRes, text)
-    setText(R.id.md_text_title, textRes, text)
+    setText(
+        view.titleLayout.titleView,
+        textRes = textRes,
+        text = text
+    )
     return this
   }
 
@@ -94,8 +105,11 @@ class MaterialDialog(
     click: ((MaterialDialog) -> (Unit))? = null
   ): MaterialDialog {
     setText(
-        R.id.md_button_positive, positiveRes, positiveText,
-        fallback = android.R.string.ok, click = click
+        view.buttonsLayout.actionButtons[INDEX_POSITIVE],
+        textRes = positiveRes,
+        text = positiveText,
+        fallback = android.R.string.ok,
+        click = click
     )
     return this
   }
@@ -107,8 +121,11 @@ class MaterialDialog(
     click: ((MaterialDialog) -> (Unit))? = null
   ): MaterialDialog {
     setText(
-        R.id.md_button_negative, negativeRes, negativeText,
-        fallback = android.R.string.cancel, click = click
+        view.buttonsLayout.actionButtons[INDEX_NEGATIVE],
+        textRes = negativeRes,
+        text = negativeText,
+        fallback = android.R.string.cancel,
+        click = click
     )
     return this
   }
@@ -120,7 +137,12 @@ class MaterialDialog(
     click: ((MaterialDialog) -> (Unit))? = null
   ): MaterialDialog {
     assertOneSet(neutralRes, neutralText)
-    setText(R.id.md_button_neutral, neutralRes, neutralText, click = click)
+    setText(
+        view.buttonsLayout.actionButtons[INDEX_NEUTRAL],
+        textRes = neutralRes,
+        text = neutralText,
+        click = click
+    )
     return this
   }
 
@@ -162,7 +184,9 @@ class MaterialDialog(
   private fun addContentMessageView(@StringRes res: Int, text: CharSequence?) {
     if (this.textViewMessage == null) {
       this.textViewMessage = inflate(
-          context, layout.md_dialog_stub_message, this.contentScrollViewFrame!!
+          context,
+          layout.md_dialog_stub_message,
+          this.contentScrollViewFrame!!
       )
       this.contentScrollViewFrame!!.addView(this.textViewMessage)
     }

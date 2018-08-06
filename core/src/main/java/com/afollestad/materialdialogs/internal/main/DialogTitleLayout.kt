@@ -5,6 +5,7 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.util.AttributeSet
 import android.view.View.MeasureSpec.AT_MOST
+import android.view.View.MeasureSpec.EXACTLY
 import android.view.View.MeasureSpec.UNSPECIFIED
 import android.widget.ImageView
 import android.widget.TextView
@@ -26,8 +27,11 @@ internal class DialogTitleLayout(
 ) : BaseSubLayout(context, attrs) {
 
   private val frameMarginVertical = dimenPx(R.dimen.md_dialog_frame_margin_vertical)
+  private val titleMarginBottom = dimenPx(R.dimen.md_dialog_title_layout_margin_bottom)
   private val frameMarginHorizontal = dimenPx(R.dimen.md_dialog_frame_margin_horizontal)
+
   private val iconMargin = dimenPx(R.dimen.md_icon_margin)
+  private val iconSize = dimenPx(R.dimen.md_icon_size)
 
   internal lateinit var iconView: ImageView
   internal lateinit var titleView: TextView
@@ -54,8 +58,8 @@ internal class DialogTitleLayout(
 
     if (iconView.isVisible()) {
       iconView.measure(
-          MeasureSpec.makeMeasureSpec(0, UNSPECIFIED),
-          MeasureSpec.makeMeasureSpec(0, UNSPECIFIED)
+          MeasureSpec.makeMeasureSpec(iconSize, EXACTLY),
+          MeasureSpec.makeMeasureSpec(iconSize, EXACTLY)
       )
     }
 
@@ -71,7 +75,7 @@ internal class DialogTitleLayout(
     val requiredHeight = max(
         iconViewHeight, titleView.measuredHeight
     )
-    val actualHeight = requiredHeight + (frameMarginVertical * 2)
+    val actualHeight = requiredHeight + frameMarginVertical + titleMarginBottom
 
     setMeasuredDimension(
         parentWidth,
@@ -89,22 +93,22 @@ internal class DialogTitleLayout(
     if (shouldNotBeVisible()) return
 
     var titleLeft = frameMarginHorizontal
-    val midPointY = measuredHeight / 2
+    val titleBottom = measuredHeight - titleMarginBottom
+    val titleTop = titleBottom - titleView.measuredHeight
+    val titleRight = titleLeft + titleView.measuredWidth
 
     if (iconView.isVisible()) {
+      val titleHalfHeight = (titleBottom - titleTop) / 2
+      val titleMidPoint = titleBottom - titleHalfHeight
       val iconHalfHeight = iconView.measuredHeight / 2
       val iconLeft = titleLeft
-      val iconTop = midPointY - iconHalfHeight
-      val iconRight = left + iconView.measuredWidth
-      val iconBottom = top + iconView.measuredHeight
+      val iconTop = titleMidPoint - iconHalfHeight
+      val iconRight = iconLeft + iconView.measuredWidth
+      val iconBottom = iconTop + iconView.measuredHeight
       iconView.layout(iconLeft, iconTop, iconRight, iconBottom)
       titleLeft = iconRight + iconMargin
     }
 
-    val titleHalfHeight = titleView.measuredHeight / 2
-    val titleTop = midPointY - titleHalfHeight
-    val titleRight = titleLeft + titleView.measuredWidth
-    val titleBottom = titleTop + titleView.measuredHeight
     titleView.layout(titleLeft, titleTop, titleRight, titleBottom)
   }
 
@@ -116,13 +120,12 @@ internal class DialogTitleLayout(
     }
 
     if (drawDivider) {
-      dividerPaint.color = getDividerColor()
       canvas.drawLine(
           0f,
           measuredHeight.toFloat() - dividerHeight.toFloat(),
           measuredWidth.toFloat(),
           measuredHeight.toFloat(),
-          dividerPaint
+          dividerPaint()
       )
     }
   }
