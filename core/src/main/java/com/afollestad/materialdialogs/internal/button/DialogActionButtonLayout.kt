@@ -2,12 +2,14 @@ package com.afollestad.materialdialogs.internal.button
 
 import android.content.Context
 import android.graphics.Canvas
-import android.graphics.Color
 import android.util.AttributeSet
 import com.afollestad.materialdialogs.R
 import com.afollestad.materialdialogs.extensions.dimenPx
 import com.afollestad.materialdialogs.extensions.isVisible
 import com.afollestad.materialdialogs.internal.BaseSubLayout
+import com.afollestad.materialdialogs.internal.DEBUG_COLOR_BLUE
+import com.afollestad.materialdialogs.internal.DEBUG_COLOR_DARK_PINK
+import com.afollestad.materialdialogs.internal.DEBUG_COLOR_PINK
 
 /**
  * Manages a set of three [DialogActionButton]'s (measuring, layout, etc.).
@@ -118,7 +120,70 @@ internal class DialogActionButtonLayout(
     super.onDraw(canvas)
 
     if (dialogParent().debugMode) {
-      canvas.drawColor(Color.parseColor("#400000cc"))
+      if (stackButtons) {
+        // Fill below buttons
+        canvas.drawRect(
+            0f,
+            measuredHeight.toFloat() - buttonFramePadding,
+            measuredWidth.toFloat(),
+            measuredHeight.toFloat(),
+            debugPaint(DEBUG_COLOR_PINK)
+        )
+        // Outline on buttons
+        var bottom = measuredHeight - buttonFramePadding
+        for (i in visibleButtons.size - 1 downTo 0) {
+          val top = bottom - buttonHeightStacked
+          canvas.drawRect(
+              0f,
+              top.toFloat(),
+              measuredWidth.toFloat(),
+              bottom.toFloat(),
+              debugPaint(DEBUG_COLOR_DARK_PINK, stroke = true)
+          )
+          bottom = top
+        }
+      } else {
+        // Fill above buttons
+        canvas.drawRect(
+            0f,
+            0f,
+            measuredWidth.toFloat(),
+            buttonFramePadding.toFloat(),
+            debugPaint(DEBUG_COLOR_PINK)
+        )
+        // Fill below buttons
+        canvas.drawRect(
+            0f,
+            measuredHeight.toFloat() - buttonFramePadding,
+            measuredWidth.toFloat(),
+            measuredHeight.toFloat(),
+            debugPaint(DEBUG_COLOR_PINK)
+        )
+        // Fill over and between buttons
+        var right = measuredWidth
+        for (i in 0 until visibleButtons.size) {
+          var left = right - buttonSpacing
+          canvas.drawRect(
+              left.toFloat(),
+              0f,
+              right.toFloat(),
+              measuredHeight.toFloat(),
+              debugPaint(DEBUG_COLOR_DARK_PINK)
+          )
+          right -= buttonSpacing
+
+          val currentButton = visibleButtons[i]
+          left = right - currentButton.measuredWidth
+          canvas.drawRect(
+              left.toFloat(),
+              buttonFramePadding.toFloat(),
+              right.toFloat(),
+              measuredHeight.toFloat() - buttonFramePadding,
+              debugPaint(DEBUG_COLOR_BLUE)
+          )
+          right = left
+        }
+      }
     }
 
     if (drawDivider) {

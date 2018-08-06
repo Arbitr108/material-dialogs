@@ -18,7 +18,6 @@ internal abstract class BaseSubLayout(
 ) : ViewGroup(context, attrs) {
 
   private val dividerPaint = Paint()
-  private var debugPaint: Paint? = null
 
   protected val dividerHeight = dimenPx(R.dimen.md_divider_height)
 
@@ -46,14 +45,9 @@ internal abstract class BaseSubLayout(
     return dividerPaint
   }
 
-  protected fun debugPaint(@ColorInt color: Int): Paint {
-    if (debugPaint == null) {
-      debugPaint = Paint()
-      debugPaint!!.style = STROKE
-    }
-    debugPaint!!.color = color
-    return debugPaint!!
-  }
+  protected fun debugPaint(
+    @ColorInt color: Int, stroke: Boolean = false
+  ): Paint = dialogParent().debugPaint(color, stroke)
 
   private fun getDividerColor(): Int {
     val colorRes =

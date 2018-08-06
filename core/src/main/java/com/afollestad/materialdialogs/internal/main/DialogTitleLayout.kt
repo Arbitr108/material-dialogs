@@ -2,7 +2,6 @@ package com.afollestad.materialdialogs.internal.main
 
 import android.content.Context
 import android.graphics.Canvas
-import android.graphics.Color
 import android.util.AttributeSet
 import android.view.View.MeasureSpec.AT_MOST
 import android.view.View.MeasureSpec.EXACTLY
@@ -14,6 +13,8 @@ import com.afollestad.materialdialogs.extensions.dimenPx
 import com.afollestad.materialdialogs.extensions.isNotVisible
 import com.afollestad.materialdialogs.extensions.isVisible
 import com.afollestad.materialdialogs.internal.BaseSubLayout
+import com.afollestad.materialdialogs.internal.DEBUG_COLOR_DARK_PINK
+import com.afollestad.materialdialogs.internal.DEBUG_COLOR_PINK
 import java.lang.Math.max
 
 /**
@@ -116,7 +117,38 @@ internal class DialogTitleLayout(
     super.onDraw(canvas)
 
     if (dialogParent().debugMode) {
-      canvas.drawColor(Color.parseColor("#4000cc00"))
+      // Fill above the title
+      canvas.drawRect(
+          0f,
+          0f,
+          measuredWidth.toFloat(),
+          frameMarginVertical.toFloat(),
+          debugPaint(DEBUG_COLOR_PINK)
+      )
+      // Fill below the title
+      canvas.drawRect(
+          0f,
+          measuredHeight.toFloat() - titleMarginBottom,
+          measuredWidth.toFloat(),
+          measuredHeight.toFloat(),
+          debugPaint(DEBUG_COLOR_PINK)
+      )
+      // Fill to the left of the title
+      canvas.drawRect(
+          0f,
+          0f,
+          frameMarginHorizontal.toFloat(),
+          measuredHeight.toFloat(),
+          debugPaint(DEBUG_COLOR_DARK_PINK)
+      )
+      // Fill to the right of the title
+      canvas.drawRect(
+          measuredWidth.toFloat() - frameMarginHorizontal,
+          0f,
+          measuredWidth.toFloat(),
+          measuredHeight.toFloat(),
+          debugPaint(DEBUG_COLOR_DARK_PINK)
+      )
     }
 
     if (drawDivider) {

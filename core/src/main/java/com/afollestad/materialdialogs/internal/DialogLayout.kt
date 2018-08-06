@@ -1,7 +1,12 @@
 package com.afollestad.materialdialogs.internal
 
 import android.content.Context
+import android.graphics.Canvas
 import android.graphics.Color
+import android.graphics.Paint
+import android.graphics.Paint.Style.FILL
+import android.graphics.Paint.Style.STROKE
+import android.support.annotation.ColorInt
 import android.util.AttributeSet
 import android.view.View
 import android.view.View.MeasureSpec.AT_MOST
@@ -14,6 +19,10 @@ import com.afollestad.materialdialogs.extensions.dimenPx
 import com.afollestad.materialdialogs.extensions.updatePadding
 import com.afollestad.materialdialogs.internal.button.DialogActionButtonLayout
 import com.afollestad.materialdialogs.internal.main.DialogTitleLayout
+
+val DEBUG_COLOR_PINK = Color.parseColor("#EAA3CF")
+val DEBUG_COLOR_DARK_PINK = Color.parseColor("#E066B1")
+val DEBUG_COLOR_BLUE = Color.parseColor("#B5FAFB")
 
 /**
  * The root layout of a dialog. Contains a [DialogTitleLayout], [DialogActionButtonLayout],
@@ -36,25 +45,24 @@ internal class DialogLayout(
 
   private val frameMarginVertical = dimenPx(R.dimen.md_dialog_frame_margin_vertical)
   private val frameMarginVerticalLess = dimenPx(R.dimen.md_dialog_frame_margin_vertical_less)
+
   private val contentView: View
     get() = rootLayout.getChildAt(1)
+  private var debugPaint: Paint? = null
 
   internal lateinit var rootLayout: DialogLayout
   internal lateinit var titleLayout: DialogTitleLayout
   internal lateinit var buttonsLayout: DialogActionButtonLayout
+
+  init {
+    setWillNotDraw(false)
+  }
 
   override fun onFinishInflate() {
     super.onFinishInflate()
     rootLayout = findViewById(R.id.md_root)
     titleLayout = findViewById(R.id.md_title_layout)
     buttonsLayout = findViewById(R.id.md_button_layout)
-  }
-
-  override fun onAttachedToWindow() {
-    super.onAttachedToWindow()
-    if (debugMode) {
-      contentView.setBackgroundColor(Color.parseColor("#40cc0000"))
-    }
   }
 
   internal fun invalidateDividers(
@@ -93,16 +101,10 @@ internal class DialogLayout(
     )
 
     if (titleLayout.shouldNotBeVisible()) {
-      if (buttonsLayout.visibleButtons.isEmpty()) {
-        contentView.updatePadding(
-            top = frameMarginVerticalLess,
-            bottom = frameMarginVerticalLess
-        )
-      } else {
-        contentView.updatePadding(
-            top = frameMarginVertical
-        )
-      }
+      contentView.updatePadding(
+          top = frameMarginVerticalLess,
+          bottom = frameMarginVerticalLess
+      )
     }
 
     val totalHeight = titleLayout.measuredHeight +
@@ -142,15 +144,50 @@ internal class DialogLayout(
     )
 
     val contentLeft = 0
-    val contentTop = titleBottom
     val contentRight = measuredWidth
-    val contentBottom = buttonsTop
-
     contentView.layout(
         contentLeft,
-        contentTop,
+        titleBottom,
         contentRight,
-        contentBottom
+        buttonsTop
     )
+  }
+
+  override fun onDraw(canvas: Canvas) {
+    super.onDraw(canvas)
+
+    if (debugMode) {
+      val contentPadding =
+        if (titleLayout.shouldNotBeVisible()) frameMarginVerticalLess else frameMarginVertical
+      if (titleLayout.shouldNotBeVisible()) {
+        // Content top spacing
+        canvas.drawRect(
+            0f,
+            titleLayout.bottom.toFloat(),
+            measuredWidth.toFloat(),
+            titleLayout.bottom.toFloat() + contentPadding,
+            debugPaint(DEBUG_COLOR_BLUE)
+        )
+      }
+      // Content bottom spacing
+      canvas.drawRect(
+          0f,
+          buttonsLayout.top.toFloat() - contentPadding,
+          measuredWidth.toFloat(),
+          buttonsLayout.top.toFloat(),
+          debugPaint(DEBUG_COLOR_BLUE)
+      )
+    }
+  }
+
+  fun debugPaint(
+    @ColorInt color: Int, stroke: Boolean = false
+  ): Paint {
+    if (debugPaint == null) {
+      debugPaint = Paint()
+    }
+    debugPaint!!.style = if (stroke) STROKE else FILL
+    debugPaint!!.color = color
+    return debugPaint!!
   }
 }
