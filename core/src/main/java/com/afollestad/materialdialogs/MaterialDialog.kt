@@ -3,6 +3,7 @@ package com.afollestad.materialdialogs
 import android.app.Dialog
 import android.content.Context
 import android.graphics.drawable.Drawable
+import android.support.annotation.CheckResult
 import android.support.annotation.DrawableRes
 import android.support.annotation.StringRes
 import android.support.annotation.StyleRes
@@ -56,6 +57,7 @@ class MaterialDialog(
     view.theme = theme
   }
 
+  @CheckResult
   fun MaterialDialog.icon(
     @DrawableRes iconRes: Int = 0,
     icon: Drawable? = null
@@ -65,6 +67,7 @@ class MaterialDialog(
     return this
   }
 
+  @CheckResult
   fun title(
     @StringRes textRes: Int = 0,
     text: CharSequence? = null
@@ -74,6 +77,7 @@ class MaterialDialog(
     return this
   }
 
+  @CheckResult
   fun message(
     @StringRes textRes: Int = 0,
     text: CharSequence? = null
@@ -83,6 +87,7 @@ class MaterialDialog(
     return this
   }
 
+  @CheckResult
   fun positiveButton(
     @StringRes positiveRes: Int = 0,
     positiveText: CharSequence? = null,
@@ -95,6 +100,7 @@ class MaterialDialog(
     return this
   }
 
+  @CheckResult
   fun negativeButton(
     @StringRes negativeRes: Int = 0,
     negativeText: CharSequence? = null,
@@ -107,6 +113,7 @@ class MaterialDialog(
     return this
   }
 
+  @CheckResult
   fun neutralButton(
     @StringRes neutralRes: Int = 0,
     neutralText: CharSequence? = null,
@@ -117,26 +124,31 @@ class MaterialDialog(
     return this
   }
 
+  @CheckResult
   fun noAutoDismiss(): MaterialDialog {
     this.autoDismiss = false
     return this
   }
 
+  @CheckResult
   fun debugMode(debugMode: Boolean = true): MaterialDialog {
     this.view.debugMode = debugMode
     return this
   }
 
+  @CheckResult
   inline fun onShow(crossinline callback: DialogCallback): MaterialDialog {
     setOnShowListener { callback.invoke(this@MaterialDialog) }
     return this
   }
 
+  @CheckResult
   inline fun onDismiss(crossinline callback: DialogCallback): MaterialDialog {
     setOnDismissListener { callback.invoke(this@MaterialDialog) }
     return this
   }
 
+  @CheckResult
   inline fun onCancel(crossinline callback: DialogCallback): MaterialDialog {
     setOnCancelListener { callback.invoke(this@MaterialDialog) }
     return this
