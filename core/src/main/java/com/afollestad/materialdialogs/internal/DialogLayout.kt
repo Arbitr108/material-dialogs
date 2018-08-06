@@ -29,7 +29,7 @@ internal class DialogLayout(
   var maxHeight: Int = 0
   var theme: Theme = Theme.LIGHT
     set(value) {
-      if(field == value) return
+      if (field == value) return
       field = value
       requestLayout()
     }

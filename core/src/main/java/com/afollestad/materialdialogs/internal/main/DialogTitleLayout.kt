@@ -60,7 +60,7 @@ internal class DialogTitleLayout(
     }
 
     val titleMaxWidth =
-      measuredWidth - (frameMarginHorizontal * 2)
+      parentWidth - (frameMarginHorizontal * 2)
     titleView.measure(
         MeasureSpec.makeMeasureSpec(titleMaxWidth, AT_MOST),
         MeasureSpec.makeMeasureSpec(0, UNSPECIFIED)
@@ -71,10 +71,11 @@ internal class DialogTitleLayout(
     val requiredHeight = max(
         iconViewHeight, titleView.measuredHeight
     )
+    val actualHeight = requiredHeight + (frameMarginVertical * 2)
 
     setMeasuredDimension(
         parentWidth,
-        requiredHeight + (frameMarginVertical * 2)
+        actualHeight
     )
   }
 
