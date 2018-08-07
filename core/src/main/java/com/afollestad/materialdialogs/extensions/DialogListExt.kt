@@ -41,7 +41,17 @@ internal fun MaterialDialog.getItemSelector(
 }
 
 @CheckResult
-fun MaterialDialog.listAdapter(
+fun MaterialDialog.getListAdapter(): RecyclerView.Adapter<*> {
+  if (this.contentRecyclerView == null ||
+      this.contentRecyclerView!!.adapter == null
+  ) {
+    throw IllegalStateException("This dialog is not currently a list dialog.")
+  }
+  return this.contentRecyclerView!!.adapter!!
+}
+
+@CheckResult
+fun MaterialDialog.customListAdapter(
   adapter: RecyclerView.Adapter<*>
 ): MaterialDialog {
   addContentRecyclerView()
@@ -57,7 +67,7 @@ fun MaterialDialog.listItems(
 ): MaterialDialog {
   assertOneSet(arrayRes, array)
   val items = array ?: getStringArray(arrayRes)
-  return listAdapter(MDListAdapter(this, items, click))
+  return customListAdapter(MDListAdapter(this, items, click))
 }
 
 @CheckResult
@@ -69,7 +79,7 @@ fun MaterialDialog.listItemsSingleChoice(
 ): MaterialDialog {
   assertOneSet(arrayRes, array)
   val items = array ?: getStringArray(arrayRes)
-  return listAdapter(
+  return customListAdapter(
       MDSingleChoiceAdapter(
           this, items, initialSelection, selectionChanged
       )
@@ -85,7 +95,7 @@ fun MaterialDialog.listItemsMultiChoice(
 ): MaterialDialog {
   assertOneSet(arrayRes, array)
   val items = array ?: getStringArray(arrayRes)
-  return listAdapter(
+  return customListAdapter(
       MDMultiChoiceAdapter(
           this, items, initialSelection, selectionChanged
       )
