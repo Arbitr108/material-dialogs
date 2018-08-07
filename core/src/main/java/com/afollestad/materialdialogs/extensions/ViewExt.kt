@@ -56,14 +56,15 @@ internal fun <T : View> T.updatePadding(
 //  this.layoutParams = layoutParams
 //}
 
-internal inline fun <T : View> T.waitForLayout(crossinline f: () -> Unit) = with(viewTreeObserver) {
-  addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
-    override fun onGlobalLayout() {
-      removeOnGlobalLayoutListener(this)
-      f()
-    }
-  })
-}
+internal inline fun <T : View> T.waitForLayout(crossinline f: () -> Unit) =
+  with(viewTreeObserver) {
+    addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
+      override fun onGlobalLayout() {
+        removeOnGlobalLayoutListener(this)
+        f()
+      }
+    })
+  }
 
 internal fun <T : View> T.dimenPx(@DimenRes res: Int): Int {
   return context.resources.getDimensionPixelSize(res)
@@ -85,3 +86,9 @@ internal fun <T : View> T.isNotVisible(): Boolean {
 internal operator fun <T : ViewGroup, R : View> T.get(index: Int): R? {
   return getChildAt(index) as? R
 }
+
+//internal fun <T : View> T.isScrollable(): Boolean = when (this) {
+//  is DialogScrollView -> this.isScrollable
+//  is DialogRecyclerView -> this.isScrollable()
+//  else -> false
+//}

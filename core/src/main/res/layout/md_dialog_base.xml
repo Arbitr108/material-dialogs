@@ -40,6 +40,13 @@
       android:layout_height="wrap_content"
       >
 
+    <android.support.v7.widget.AppCompatCheckBox
+        android:id="@+id/md_checkbox_prompt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        />
+
     <com.afollestad.materialdialogs.internal.button.DialogActionButton
         android:id="@+id/md_button_positive"
         tools:text="Agree"

@@ -3,11 +3,16 @@ package com.afollestad.materialdialogssample
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.extensions.checkBoxPrompt
 import com.afollestad.materialdialogs.extensions.listItems
 import com.afollestad.materialdialogs.extensions.listItemsMultiChoice
 import com.afollestad.materialdialogs.extensions.listItemsSingleChoice
 import kotlinx.android.synthetic.main.activity_main.basic
 import kotlinx.android.synthetic.main.activity_main.basic_buttons
+import kotlinx.android.synthetic.main.activity_main.basic_checkbox
+import kotlinx.android.synthetic.main.activity_main.basic_checkbox_buttons
+import kotlinx.android.synthetic.main.activity_main.basic_checkbox_titled
+import kotlinx.android.synthetic.main.activity_main.basic_checkbox_titled_buttons
 import kotlinx.android.synthetic.main.activity_main.basic_icon
 import kotlinx.android.synthetic.main.activity_main.basic_long
 import kotlinx.android.synthetic.main.activity_main.basic_long_buttons
@@ -18,6 +23,7 @@ import kotlinx.android.synthetic.main.activity_main.basic_titled_buttons
 import kotlinx.android.synthetic.main.activity_main.buttons_callbacks
 import kotlinx.android.synthetic.main.activity_main.buttons_neutral
 import kotlinx.android.synthetic.main.activity_main.buttons_stacked
+import kotlinx.android.synthetic.main.activity_main.buttons_stacked_checkboxPrompt
 import kotlinx.android.synthetic.main.activity_main.list
 import kotlinx.android.synthetic.main.activity_main.list_buttons
 import kotlinx.android.synthetic.main.activity_main.list_checkPrompt
@@ -41,8 +47,10 @@ import kotlinx.android.synthetic.main.activity_main.multiple_choice_long_items
 import kotlinx.android.synthetic.main.activity_main.multiple_choice_min
 import kotlinx.android.synthetic.main.activity_main.single_choice
 import kotlinx.android.synthetic.main.activity_main.single_choice_buttons
+import kotlinx.android.synthetic.main.activity_main.single_choice_buttons_titled
 import kotlinx.android.synthetic.main.activity_main.single_choice_disabled_items
 import kotlinx.android.synthetic.main.activity_main.single_choice_long_items
+import kotlinx.android.synthetic.main.activity_main.single_choice_titled
 
 /** @author Aidan Follestad (afollestad) */
 class MainActivity : AppCompatActivity() {
@@ -132,7 +140,51 @@ class MainActivity : AppCompatActivity() {
       }
     }
 
-    // TODO checkbox prompt dialogs
+    basic_checkbox.setOnClickListener {
+      MaterialDialog(this).show {
+        message(textRes = R.string.loremIpsum)
+        checkBoxPrompt(R.string.checkboxConfirm) {
+          toast("Checked? $it")
+        }
+        debugMode(debugMode)
+      }
+    }
+
+    basic_checkbox_buttons.setOnClickListener {
+      MaterialDialog(this).show {
+        message(textRes = R.string.loremIpsum)
+        positiveButton(R.string.agree)
+        negativeButton(R.string.disagree)
+        checkBoxPrompt(R.string.checkboxConfirm) {
+          toast("Checked? $it")
+        }
+        debugMode(debugMode)
+      }
+    }
+
+    basic_checkbox_titled.setOnClickListener {
+      MaterialDialog(this).show {
+        title(textRes = R.string.useGoogleLocationServices)
+        message(textRes = R.string.loremIpsum)
+        checkBoxPrompt(R.string.checkboxConfirm) {
+          toast("Checked? $it")
+        }
+        debugMode(debugMode)
+      }
+    }
+
+    basic_checkbox_titled_buttons.setOnClickListener {
+      MaterialDialog(this).show {
+        title(textRes = R.string.useGoogleLocationServices)
+        message(textRes = R.string.loremIpsum)
+        positiveButton(R.string.agree)
+        negativeButton(R.string.disagree)
+        checkBoxPrompt(R.string.checkboxConfirm) {
+          toast("Checked? $it")
+        }
+        debugMode(debugMode)
+      }
+    }
 
     list.setOnClickListener {
       MaterialDialog(this).show {
@@ -239,14 +291,37 @@ class MainActivity : AppCompatActivity() {
     }
 
     list_checkPrompt.setOnClickListener {
-      // TODO
+      MaterialDialog(this).show {
+        title(textRes = R.string.socialNetworks)
+        listItems(arrayRes = R.array.socialNetworks_longItems)
+        checkBoxPrompt(R.string.checkboxConfirm) {
+          toast("Checked? $it")
+        }
+        debugMode(debugMode)
+      }
     }
 
     list_checkPrompt_buttons.setOnClickListener {
-      // TODO
+      MaterialDialog(this).show {
+        title(textRes = R.string.socialNetworks)
+        listItems(arrayRes = R.array.socialNetworks_longItems)
+        positiveButton(R.string.agree)
+        negativeButton(R.string.disagree)
+        checkBoxPrompt(R.string.checkboxConfirm) {
+          toast("Checked? $it")
+        }
+        debugMode(debugMode)
+      }
     }
 
     single_choice.setOnClickListener {
+      MaterialDialog(this).show {
+        listItemsSingleChoice(arrayRes = R.array.socialNetworks, initialSelection = 1)
+        debugMode(debugMode)
+      }
+    }
+
+    single_choice_titled.setOnClickListener {
       MaterialDialog(this).show {
         title(textRes = R.string.socialNetworks)
         listItemsSingleChoice(arrayRes = R.array.socialNetworks, initialSelection = 1)
@@ -255,6 +330,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     single_choice_buttons.setOnClickListener {
+      MaterialDialog(this).show {
+        listItemsSingleChoice(arrayRes = R.array.socialNetworks, initialSelection = 2)
+        positiveButton(R.string.choose)
+        debugMode(debugMode)
+      }
+    }
+
+    single_choice_buttons_titled.setOnClickListener {
       MaterialDialog(this).show {
         title(textRes = R.string.socialNetworks)
         listItemsSingleChoice(arrayRes = R.array.socialNetworks, initialSelection = 2)
@@ -314,8 +397,6 @@ class MainActivity : AppCompatActivity() {
       // TODO
     }
 
-    // TODO
-
     buttons_stacked.setOnClickListener {
       MaterialDialog(this).show {
         title(textRes = R.string.useGoogleLocationServices)
@@ -323,6 +404,20 @@ class MainActivity : AppCompatActivity() {
         positiveButton(positiveText = "Hello World")
         negativeButton(negativeText = "How are you doing?")
         neutralButton(neutralText = "Testing long buttons")
+        debugMode(debugMode)
+      }
+    }
+
+    buttons_stacked_checkboxPrompt.setOnClickListener {
+      MaterialDialog(this).show {
+        title(textRes = R.string.useGoogleLocationServices)
+        message(textRes = R.string.useGoogleLocationServicesPrompt)
+        positiveButton(positiveText = "Hello World")
+        negativeButton(negativeText = "How are you doing?")
+        neutralButton(neutralText = "Testing long buttons")
+        checkBoxPrompt(R.string.checkboxConfirm) {
+          toast("Checked? $it")
+        }
         debugMode(debugMode)
       }
     }

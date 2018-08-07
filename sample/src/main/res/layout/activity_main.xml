@@ -232,7 +232,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/sample_button_height"
         android:layout_marginTop="@dimen/sample_button_spacing"
-        android:text="Checkbox Prompt"
+        android:text="List + Title + Checkbox Prompt"
         />
 
     <Button
@@ -240,13 +240,13 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/sample_button_height"
         android:layout_marginTop="@dimen/sample_button_spacing"
-        android:text="Checkbox Prompt + Buttons"
+        android:text="List + Title + Checkbox Prompt + Buttons"
         />
 
-    <!-- Choice Lists -->
+    <!-- Single Choice Lists -->
 
     <TextView
-        android:text="Choice Lists"
+        android:text="Single Choice Lists"
         style="@style/SampleHeader"
         />
 
@@ -259,11 +259,27 @@
         />
 
     <Button
+        android:id="@+id/single_choice_titled"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/sample_button_height"
+        android:layout_marginTop="@dimen/sample_button_spacing"
+        android:text="Single Choice + Title"
+        />
+
+    <Button
         android:id="@+id/single_choice_buttons"
         android:layout_width="match_parent"
         android:layout_height="@dimen/sample_button_height"
         android:layout_marginTop="@dimen/sample_button_spacing"
         android:text="Single Choice + Buttons"
+        />
+
+    <Button
+        android:id="@+id/single_choice_buttons_titled"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/sample_button_height"
+        android:layout_marginTop="@dimen/sample_button_spacing"
+        android:text="Single Choice + Title + Buttons"
         />
 
     <Button
@@ -280,6 +296,13 @@
         android:layout_height="@dimen/sample_button_height"
         android:layout_marginTop="@dimen/sample_button_spacing"
         android:text="Single Choice + Disabled Items"
+        />
+
+    <!-- Multiple Choice Lists -->
+
+    <TextView
+        android:text="Multiple Choice Lists"
+        style="@style/SampleHeader"
         />
 
     <Button
@@ -346,6 +369,14 @@
         />
 
     <Button
+        android:id="@+id/buttons_stacked_checkboxPrompt"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/sample_button_height"
+        android:layout_marginTop="@dimen/sample_button_spacing"
+        android:text="Stacked Buttons + Checkbox Prompt"
+        />
+
+    <Button
         android:id="@+id/buttons_neutral"
         android:layout_width="match_parent"
         android:layout_height="@dimen/sample_button_height"
@@ -359,6 +390,58 @@
         android:layout_height="@dimen/sample_button_height"
         android:layout_marginTop="@dimen/sample_button_spacing"
         android:text="Button Callbacks"
+        />
+
+    <TextView
+        android:text="Miscellaneous"
+        style="@style/SampleHeader"
+        />
+
+    <Button
+        android:id="@+id/misc_themed"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/sample_button_height"
+        android:layout_marginTop="@dimen/sample_button_spacing"
+        android:text="Themed Dialogs"
+        />
+
+    <Button
+        android:id="@+id/misc_dialog_callbacks"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/sample_button_height"
+        android:layout_marginTop="@dimen/sample_button_spacing"
+        android:text="Dialog Callbacks"
+        />
+
+    <!-- Input -->
+
+    <TextView
+        android:text="Text Input"
+        style="@style/SampleHeader"
+        />
+
+    <Button
+        android:id="@+id/input"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/sample_button_height"
+        android:layout_marginTop="@dimen/sample_button_spacing"
+        android:text="Basic Input"
+        />
+
+    <Button
+        android:id="@+id/input_validation"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/sample_button_height"
+        android:layout_marginTop="@dimen/sample_button_spacing"
+        android:text="Input Validation"
+        />
+
+    <Button
+        android:id="@+id/input_check_prompt"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/sample_button_height"
+        android:layout_marginTop="@dimen/sample_button_spacing"
+        android:text="Input + Checkbox Prompt"
         />
 
     <!-- Custom Views -->
@@ -431,58 +514,11 @@
         android:text="Color Chooser, Custom + No Sub"
         />
 
-    <!-- Input -->
+    <!-- File/Folder Choosers -->
 
     <TextView
-        android:text="Input"
+        android:text="File/Folder Choosers"
         style="@style/SampleHeader"
-        />
-
-    <Button
-        android:id="@+id/input"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/sample_button_height"
-        android:layout_marginTop="@dimen/sample_button_spacing"
-        android:text="Basic Input"
-        />
-
-    <Button
-        android:id="@+id/input_validation"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/sample_button_height"
-        android:layout_marginTop="@dimen/sample_button_spacing"
-        android:text="Input Validation"
-        />
-
-    <Button
-        android:id="@+id/input_check_prompt"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/sample_button_height"
-        android:layout_marginTop="@dimen/sample_button_spacing"
-        android:text="Input + Checkbox Prompt"
-        />
-
-    <!-- Misc -->
-
-    <TextView
-        android:text="Miscellaneous"
-        style="@style/SampleHeader"
-        />
-
-    <Button
-        android:id="@+id/misc_themed"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/sample_button_height"
-        android:layout_marginTop="@dimen/sample_button_spacing"
-        android:text="Themed Dialog"
-        />
-
-    <Button
-        android:id="@+id/misc_dialog_callbacks"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/sample_button_height"
-        android:layout_marginTop="@dimen/sample_button_spacing"
-        android:text="Dialog Callbacks"
         />
 
     <Button

@@ -5,6 +5,7 @@ package com.afollestad.materialdialogs.extensions
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.support.annotation.ArrayRes
+import android.support.annotation.CheckResult
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -39,6 +40,7 @@ internal fun MaterialDialog.getItemSelector(
   return ContextCompat.getDrawable(context, resId)
 }
 
+@CheckResult
 fun MaterialDialog.listAdapter(
   adapter: RecyclerView.Adapter<*>
 ): MaterialDialog {
@@ -47,6 +49,7 @@ fun MaterialDialog.listAdapter(
   return this
 }
 
+@CheckResult
 fun MaterialDialog.listItems(
   @ArrayRes arrayRes: Int = 0,
   array: Array<CharSequence>? = null,
@@ -57,6 +60,7 @@ fun MaterialDialog.listItems(
   return listAdapter(MDListAdapter(this, items, click))
 }
 
+@CheckResult
 fun MaterialDialog.listItemsSingleChoice(
   @ArrayRes arrayRes: Int = 0,
   array: Array<CharSequence>? = null,
@@ -72,6 +76,7 @@ fun MaterialDialog.listItemsSingleChoice(
   )
 }
 
+@CheckResult
 fun MaterialDialog.listItemsMultiChoice(
   @ArrayRes arrayRes: Int = 0,
   array: Array<CharSequence>? = null,

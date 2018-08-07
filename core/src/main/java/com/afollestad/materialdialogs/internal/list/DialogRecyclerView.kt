@@ -43,7 +43,7 @@ internal class DialogRecyclerView(
     invalidateDividers()
   }
 
-  private fun isScrollable(): Boolean {
+  fun isScrollable(): Boolean {
     if (adapter == null) return false
     val lm = layoutManager
     val itemCount = adapter!!.itemCount

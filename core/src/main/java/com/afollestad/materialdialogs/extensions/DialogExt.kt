@@ -47,7 +47,8 @@ internal fun MaterialDialog.setText(
   @StringRes textRes: Int = 0,
   text: CharSequence? = null,
   @StringRes fallback: Int = 0,
-  click: ((MaterialDialog) -> (Unit))? = null
+  click: ((MaterialDialog) -> (Unit))? = null,
+  allowDismiss: Boolean = true
 ) {
   val value = text ?: getString(textRes, fallback)
   if (value != null) {
@@ -57,7 +58,7 @@ internal fun MaterialDialog.setText(
   } else {
     textView.visibility = View.GONE
   }
-  if (value != null) {
+  if (value != null && (allowDismiss || click != null)) {
     textView.setOnClickListener {
       if (autoDismiss) {
         dismiss()

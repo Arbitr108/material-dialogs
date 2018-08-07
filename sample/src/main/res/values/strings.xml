@@ -27,5 +27,6 @@
     molestie, lobortis velit accumsan, ornare massa. Praesent scelerisque quam ipsum, et feugiat
     ante aliquet eget. Aenean ultricies vulputate sem.
   </string>
+  <string name="checkboxConfirm">I understand what this means</string>
 
 </resources>

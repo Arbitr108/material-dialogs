@@ -2,18 +2,28 @@
 
 package com.afollestad.materialdialogs.extensions
 
+import android.support.annotation.CheckResult
 import android.support.annotation.StringRes
+import android.view.View
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.assertOneSet
 
-// TODO(Aidan)
+@CheckResult
 fun MaterialDialog.checkBoxPrompt(
   @StringRes textRes: Int = 0,
   text: CharSequence? = null,
-  onToggle: (() -> (Boolean))?
+  onToggle: ((Boolean) -> Unit)?
 ): MaterialDialog {
   assertOneSet(textRes, text)
-//  data[KEY_CHECKBOX_PROMPT] = text ?: getString(textRes)
-//  data[KEY_CHECKBOX_PROMPT_LISTENER] = onToggle
+  view.buttonsLayout.checkBoxPrompt.visibility = View.VISIBLE
+  setText(
+      view.buttonsLayout.checkBoxPrompt,
+      textRes = textRes,
+      text = text,
+      allowDismiss = false
+  )
+  view.buttonsLayout.checkBoxPrompt.setOnCheckedChangeListener { _, checked ->
+    onToggle?.invoke(checked)
+  }
   return this
 }

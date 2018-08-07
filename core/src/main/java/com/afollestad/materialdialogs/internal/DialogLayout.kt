@@ -8,6 +8,7 @@ import android.graphics.Paint.Style.FILL
 import android.graphics.Paint.Style.STROKE
 import android.support.annotation.ColorInt
 import android.util.AttributeSet
+import android.util.Log
 import android.view.View
 import android.view.View.MeasureSpec.AT_MOST
 import android.view.View.MeasureSpec.EXACTLY
@@ -87,10 +88,12 @@ internal class DialogLayout(
         MeasureSpec.makeMeasureSpec(specWidth, EXACTLY),
         MeasureSpec.makeMeasureSpec(0, UNSPECIFIED)
     )
-    buttonsLayout.measure(
-        MeasureSpec.makeMeasureSpec(specWidth, EXACTLY),
-        MeasureSpec.makeMeasureSpec(0, UNSPECIFIED)
-    )
+    if (buttonsLayout.shouldBeVisible()) {
+      buttonsLayout.measure(
+          MeasureSpec.makeMeasureSpec(specWidth, EXACTLY),
+          MeasureSpec.makeMeasureSpec(0, UNSPECIFIED)
+      )
+    }
 
     val titleAndButtonsHeight =
       titleLayout.measuredHeight + buttonsLayout.measuredHeight
@@ -111,6 +114,14 @@ internal class DialogLayout(
         contentView.measuredHeight +
         buttonsLayout.measuredHeight
     setMeasuredDimension(specWidth, totalHeight)
+
+    Log.d(
+        "MaterialDialogs",
+        "DialogLayout.onMeasure($specWidth, $totalHeight)\n" +
+            "\ttitleHeight = ${titleLayout.measuredHeight}, " +
+            "\tcontentHeight = ${contentView.measuredHeight}, " +
+            "\tbuttonsHeight = ${buttonsLayout.measuredHeight}"
+    )
   }
 
   override fun onLayout(
@@ -131,17 +142,19 @@ internal class DialogLayout(
         titleBottom
     )
 
-    val buttonsLeft = 0
     val buttonsTop =
       measuredHeight - buttonsLayout.measuredHeight
-    val buttonsRight = measuredWidth
-    val buttonsBottom = measuredHeight
-    buttonsLayout.layout(
-        buttonsLeft,
-        buttonsTop,
-        buttonsRight,
-        buttonsBottom
-    )
+    if (buttonsLayout.shouldBeVisible()) {
+      val buttonsLeft = 0
+      val buttonsRight = measuredWidth
+      val buttonsBottom = measuredHeight
+      buttonsLayout.layout(
+          buttonsLeft,
+          buttonsTop,
+          buttonsRight,
+          buttonsBottom
+      )
+    }
 
     val contentLeft = 0
     val contentRight = measuredWidth
