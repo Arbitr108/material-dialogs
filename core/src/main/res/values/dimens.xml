@@ -37,7 +37,7 @@
   <dimen name="md_listitem_margin_left">24dp</dimen>
 
   <dimen name="md_checkbox_prompt_margin_horizontal">16dp</dimen>
-  <dimen name="md_checkbox_prompt_margin_vertical">12dp</dimen>
+  <dimen name="md_checkbox_prompt_margin_vertical">10dp</dimen>
   <dimen name="md_divider_height">1dp</dimen>
 
 </resources>

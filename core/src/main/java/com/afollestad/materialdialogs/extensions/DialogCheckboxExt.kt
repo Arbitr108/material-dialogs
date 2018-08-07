@@ -1,5 +1,3 @@
-@file:Suppress("unused")
-
 package com.afollestad.materialdialogs.extensions
 
 import android.support.annotation.CheckResult
@@ -12,18 +10,17 @@ import com.afollestad.materialdialogs.assertOneSet
 fun MaterialDialog.checkBoxPrompt(
   @StringRes textRes: Int = 0,
   text: CharSequence? = null,
+  isCheckedDefault: Boolean = false,
   onToggle: ((Boolean) -> Unit)?
 ): MaterialDialog {
   assertOneSet(textRes, text)
-  view.buttonsLayout.checkBoxPrompt.visibility = View.VISIBLE
-  setText(
-      view.buttonsLayout.checkBoxPrompt,
-      textRes = textRes,
-      text = text,
-      allowDismiss = false
-  )
-  view.buttonsLayout.checkBoxPrompt.setOnCheckedChangeListener { _, checked ->
-    onToggle?.invoke(checked)
+  with(view.buttonsLayout.checkBoxPrompt) {
+    this.visibility = View.VISIBLE
+    this.text = text ?: getString(textRes)
+    this.isChecked = isCheckedDefault
+    this.setOnCheckedChangeListener { _, checked ->
+      onToggle?.invoke(checked)
+    }
   }
   return this
 }
