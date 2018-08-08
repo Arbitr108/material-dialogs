@@ -1,7 +1,12 @@
 package com.afollestad.materialdialogs.extensions
 
+import android.content.Context
+import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.support.annotation.ArrayRes
+import android.support.annotation.AttrRes
+import android.support.annotation.ColorInt
+import android.support.annotation.ColorRes
 import android.support.annotation.DrawableRes
 import android.support.annotation.StringRes
 import android.support.v4.content.ContextCompat
@@ -10,12 +15,58 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.afollestad.materialdialogs.MaterialDialog
 
+@ColorInt internal fun getColor(
+  context: Context,
+  @ColorRes res: Int = 0,
+  @AttrRes attr: Int? = null
+): Int {
+  if (attr != null) {
+    val a = context.theme.obtainStyledAttributes(intArrayOf(attr))
+    try {
+      return a.getColor(0, Color.BLACK)
+    } finally {
+      a.recycle()
+    }
+  }
+  return ContextCompat.getColor(context, res)
+}
+
+@ColorInt internal fun MaterialDialog.getColor(
+  @ColorRes res: Int = 0,
+  @AttrRes attr: Int? = null
+): Int = getColor(context, res, attr)
+
 internal fun MaterialDialog.getString(@StringRes res: Int, @StringRes fallback: Int = 0): CharSequence? {
   return context.resources.getText(if (res == 0) fallback else res)
 }
 
-internal fun MaterialDialog.getDrawable(@DrawableRes res: Int, fallback: Drawable? = null): Drawable? {
+internal fun getDrawable(
+  context: Context,
+  @DrawableRes res: Int = 0,
+  @AttrRes attr: Int? = null,
+  fallback: Drawable? = null
+): Drawable? {
+  if (attr != null) {
+    val a = context.theme.obtainStyledAttributes(intArrayOf(attr))
+    try {
+      var d = a.getDrawable(0)
+      if (d == null && fallback != null) {
+        d = fallback
+      }
+      return d
+    } finally {
+      a.recycle()
+    }
+  }
   return ContextCompat.getDrawable(context, res) ?: fallback
+}
+
+internal fun MaterialDialog.getDrawable(
+  @DrawableRes res: Int = 0,
+  @AttrRes attr: Int? = null,
+  fallback: Drawable? = null
+): Drawable? {
+  return getDrawable(context, res = res, attr = attr, fallback = fallback)
 }
 
 internal fun MaterialDialog.getStringArray(@ArrayRes res: Int): Array<CharSequence> {
@@ -32,7 +83,7 @@ internal fun MaterialDialog.setIcon(
   @DrawableRes iconRes: Int,
   icon: Drawable?
 ) {
-  val drawable = getDrawable(iconRes, icon)
+  val drawable = getDrawable(res = iconRes, fallback = icon)
   if (drawable != null) {
     (imageView.parent as View).visibility = View.VISIBLE
     imageView.visibility = View.VISIBLE

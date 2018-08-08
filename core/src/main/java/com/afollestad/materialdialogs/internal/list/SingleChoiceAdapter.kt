@@ -1,12 +1,13 @@
 package com.afollestad.materialdialogs.internal.list
 
+import android.support.v7.widget.AppCompatRadioButton
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CompoundButton
 import android.widget.TextView
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.R
+import com.afollestad.materialdialogs.extensions.getColorSelector
 import com.afollestad.materialdialogs.extensions.getItemSelector
 import com.afollestad.materialdialogs.extensions.hasActionButtons
 import com.afollestad.materialdialogs.extensions.inflate
@@ -31,7 +32,7 @@ internal class MDSingleChoiceViewHolder(
     }
   }
 
-  val controlView: CompoundButton = itemView.findViewById(R.id.md_control)
+  val controlView: AppCompatRadioButton = itemView.findViewById(R.id.md_control)
   val titleView: TextView = itemView.findViewById(R.id.md_title)
 }
 
@@ -59,7 +60,7 @@ internal class MDSingleChoiceAdapter(
     parent: ViewGroup,
     viewType: Int
   ): MDSingleChoiceViewHolder {
-    val listItemView: View = parent.inflate(R.layout.md_listitem_singlechoice)
+    val listItemView: View = parent.inflate(dialog.context, R.layout.md_listitem_singlechoice)
     return MDSingleChoiceViewHolder(
         listItemView, this, dialog
     )
@@ -75,6 +76,6 @@ internal class MDSingleChoiceAdapter(
   ) {
     holder.controlView.isChecked = currentSelection == position
     holder.titleView.text = items[position]
-    holder.itemView.background = dialog.getItemSelector(holder.itemView.context)
+    holder.itemView.background = dialog.getItemSelector()
   }
 }

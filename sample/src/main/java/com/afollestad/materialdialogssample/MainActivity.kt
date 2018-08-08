@@ -3,59 +3,18 @@ package com.afollestad.materialdialogssample
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.Theme.DARK
 import com.afollestad.materialdialogs.extensions.checkBoxPrompt
+import com.afollestad.materialdialogs.extensions.colorActionButtons
 import com.afollestad.materialdialogs.extensions.listItems
 import com.afollestad.materialdialogs.extensions.listItemsMultiChoice
 import com.afollestad.materialdialogs.extensions.listItemsSingleChoice
-import kotlinx.android.synthetic.main.activity_main.basic
-import kotlinx.android.synthetic.main.activity_main.basic_buttons
-import kotlinx.android.synthetic.main.activity_main.basic_checkbox
-import kotlinx.android.synthetic.main.activity_main.basic_checkbox_buttons
-import kotlinx.android.synthetic.main.activity_main.basic_checkbox_titled
-import kotlinx.android.synthetic.main.activity_main.basic_checkbox_titled_buttons
-import kotlinx.android.synthetic.main.activity_main.basic_icon
-import kotlinx.android.synthetic.main.activity_main.basic_long
-import kotlinx.android.synthetic.main.activity_main.basic_long_buttons
-import kotlinx.android.synthetic.main.activity_main.basic_long_titled
-import kotlinx.android.synthetic.main.activity_main.basic_long_titled_buttons
-import kotlinx.android.synthetic.main.activity_main.basic_titled
-import kotlinx.android.synthetic.main.activity_main.basic_titled_buttons
-import kotlinx.android.synthetic.main.activity_main.buttons_callbacks
-import kotlinx.android.synthetic.main.activity_main.buttons_neutral
-import kotlinx.android.synthetic.main.activity_main.buttons_stacked
-import kotlinx.android.synthetic.main.activity_main.buttons_stacked_checkboxPrompt
-import kotlinx.android.synthetic.main.activity_main.list
-import kotlinx.android.synthetic.main.activity_main.list_buttons
-import kotlinx.android.synthetic.main.activity_main.list_checkPrompt
-import kotlinx.android.synthetic.main.activity_main.list_checkPrompt_buttons
-import kotlinx.android.synthetic.main.activity_main.list_long
-import kotlinx.android.synthetic.main.activity_main.list_long_buttons
-import kotlinx.android.synthetic.main.activity_main.list_long_items
-import kotlinx.android.synthetic.main.activity_main.list_long_items_buttons
-import kotlinx.android.synthetic.main.activity_main.list_long_items_titled
-import kotlinx.android.synthetic.main.activity_main.list_long_items_titled_buttons
-import kotlinx.android.synthetic.main.activity_main.list_long_titled
-import kotlinx.android.synthetic.main.activity_main.list_long_titled_buttons
-import kotlinx.android.synthetic.main.activity_main.list_titled
-import kotlinx.android.synthetic.main.activity_main.list_titled_buttons
-import kotlinx.android.synthetic.main.activity_main.misc_dialog_callbacks
-import kotlinx.android.synthetic.main.activity_main.multiple_choice
-import kotlinx.android.synthetic.main.activity_main.multiple_choice_buttons
-import kotlinx.android.synthetic.main.activity_main.multiple_choice_disabled_items
-import kotlinx.android.synthetic.main.activity_main.multiple_choice_limit
-import kotlinx.android.synthetic.main.activity_main.multiple_choice_long_items
-import kotlinx.android.synthetic.main.activity_main.multiple_choice_min
-import kotlinx.android.synthetic.main.activity_main.single_choice
-import kotlinx.android.synthetic.main.activity_main.single_choice_buttons
-import kotlinx.android.synthetic.main.activity_main.single_choice_buttons_titled
-import kotlinx.android.synthetic.main.activity_main.single_choice_disabled_items
-import kotlinx.android.synthetic.main.activity_main.single_choice_long_items
-import kotlinx.android.synthetic.main.activity_main.single_choice_titled
+import kotlinx.android.synthetic.main.activity_main.*
 
 /** @author Aidan Follestad (afollestad) */
 class MainActivity : AppCompatActivity() {
 
-  private val debugMode = true
+  private val debugMode = false
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -355,10 +314,6 @@ class MainActivity : AppCompatActivity() {
       }
     }
 
-    single_choice_disabled_items.setOnClickListener {
-      // TODO
-    }
-
     multiple_choice.setOnClickListener {
       MaterialDialog(this).show {
         title(textRes = R.string.socialNetworks)
@@ -376,14 +331,6 @@ class MainActivity : AppCompatActivity() {
       }
     }
 
-    multiple_choice_limit.setOnClickListener {
-      // TODO
-    }
-
-    multiple_choice_min.setOnClickListener {
-      // TODO
-    }
-
     multiple_choice_long_items.setOnClickListener {
       MaterialDialog(this).show {
         title(textRes = R.string.socialNetworks)
@@ -391,10 +338,6 @@ class MainActivity : AppCompatActivity() {
         positiveButton(R.string.choose)
         debugMode(debugMode)
       }
-    }
-
-    multiple_choice_disabled_items.setOnClickListener {
-      // TODO
     }
 
     buttons_stacked.setOnClickListener {

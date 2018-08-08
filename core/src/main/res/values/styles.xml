@@ -10,6 +10,10 @@
 
     <item name="android:windowAnimationStyle">@style/MD_WindowAnimation</item>
     <item name="android:backgroundDimEnabled">true</item>
+
+    <item name="md_divider_color">@color/md_divider_black</item>
+    <item name="md_item_selector">@drawable/md_item_selector</item>
+    <item name="md_button_selector">@drawable/md_btn_selector</item>
   </style>
 
   <style name="MD_Dark" parent="Theme.AppCompat.Dialog.Alert">
@@ -21,6 +25,10 @@
 
     <item name="android:windowAnimationStyle">@style/MD_WindowAnimation</item>
     <item name="android:backgroundDimEnabled">true</item>
+
+    <item name="md_divider_color">@color/md_divider_white</item>
+    <item name="md_item_selector">@drawable/md_item_selector_dark</item>
+    <item name="md_button_selector">@drawable/md_btn_selector_dark</item>
   </style>
 
   <style name="MD_WindowAnimation">

@@ -44,7 +44,7 @@ internal class MDListAdapter(
     parent: ViewGroup,
     viewType: Int
   ): MDListViewHolder {
-    val listItemView: View = parent.inflate(R.layout.md_listitem)
+    val listItemView: View = parent.inflate(dialog.context, R.layout.md_listitem)
     return MDListViewHolder(listItemView, this, dialog)
   }
 
@@ -58,6 +58,6 @@ internal class MDListAdapter(
   ) {
     val titleValue = items[position]
     holder.titleView.text = titleValue
-    holder.itemView.background = dialog.getItemSelector(holder.itemView.context)
+    holder.itemView.background = dialog.getItemSelector()
   }
 }

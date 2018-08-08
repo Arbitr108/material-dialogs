@@ -2,6 +2,7 @@ package com.afollestad.materialdialogs.internal.button
 
 import android.content.Context
 import android.graphics.Canvas
+import android.support.annotation.ColorInt
 import android.support.v7.widget.AppCompatCheckBox
 import android.util.AttributeSet
 import com.afollestad.materialdialogs.R
@@ -35,7 +36,6 @@ internal class DialogActionButtonLayout(
   private val buttonHeightStacked = dimenPx(R.dimen.md_stacked_action_button_height)
   private val buttonFramePadding = dimenPx(R.dimen.md_action_button_frame_padding)
   private val buttonSpacing = dimenPx(R.dimen.md_action_button_spacing)
-  private val dialogFrameMarginHorizontal = dimenPx(R.dimen.md_dialog_frame_margin_horizontal)
 
   private val checkBoxPromptMarginVertical = dimenPx(R.dimen.md_checkbox_prompt_margin_vertical)
   private val checkBoxPromptMarginHorizontal = dimenPx(R.dimen.md_checkbox_prompt_margin_horizontal)
@@ -50,6 +50,12 @@ internal class DialogActionButtonLayout(
         .toTypedArray()
 
   fun shouldBeVisible() = visibleButtons.isNotEmpty() || checkBoxPrompt.isVisible()
+
+  fun setActionButtonColor(@ColorInt color: Int) {
+    for (button in actionButtons) {
+      button.setTextColor(color)
+    }
+  }
 
   override fun onFinishInflate() {
     super.onFinishInflate()
@@ -82,7 +88,7 @@ internal class DialogActionButtonLayout(
 
     // Buttons plus any spacing around that makes up the "frame"
     for (button in visibleButtons) {
-      button.update(theme, stackButtons)
+      button.update(stackButtons)
       if (stackButtons) {
         button.measure(
             MeasureSpec.makeMeasureSpec(parentWidth, MeasureSpec.EXACTLY),

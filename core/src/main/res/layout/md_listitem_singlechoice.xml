@@ -9,7 +9,7 @@
       />
   <TextView
       android:id="@+id/md_title"
-      style="@style/MD_ListItemText.Choice"
       tools:text="Item"
+      style="@style/MD_ListItemText.Choice"
       />
 </LinearLayout>

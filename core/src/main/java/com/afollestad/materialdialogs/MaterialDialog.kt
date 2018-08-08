@@ -11,8 +11,11 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import com.afollestad.materialdialogs.R.layout
 import com.afollestad.materialdialogs.extensions.addContentScrollView
+import com.afollestad.materialdialogs.extensions.getColor
 import com.afollestad.materialdialogs.extensions.getString
 import com.afollestad.materialdialogs.extensions.inflate
+import com.afollestad.materialdialogs.extensions.isColorDark
+import com.afollestad.materialdialogs.extensions.setDefaults
 import com.afollestad.materialdialogs.extensions.setIcon
 import com.afollestad.materialdialogs.extensions.setText
 import com.afollestad.materialdialogs.extensions.setWindowConstraints
@@ -34,16 +37,24 @@ internal fun assertOneSet(
   }
 }
 
-enum class Theme(@StyleRes val styleRes: Int) {
+enum class Theme(
+  @StyleRes val styleRes: Int
+) {
   LIGHT(R.style.MD_Light),
-  DARK(R.style.MD_Dark)
+  DARK(R.style.MD_Dark);
+
+  companion object {
+    fun inferTheme(context: Context): Theme {
+      val isPrimaryDark = getColor(context, attr = android.R.attr.textColorPrimary).isColorDark()
+      return if (isPrimaryDark) LIGHT else DARK
+    }
+  }
 }
 
 /** @author Aidan Follestad (afollestad) */
 class MaterialDialog(
-  context: Context,
-  internal val theme: Theme = Theme.LIGHT
-) : Dialog(context, theme.styleRes) {
+  internal val context: Context
+) : Dialog(context, Theme.inferTheme(context).styleRes) {
 
   internal val view: DialogLayout = inflate(context, R.layout.md_dialog_base)
   internal var autoDismiss: Boolean = true
@@ -57,7 +68,7 @@ class MaterialDialog(
   init {
     setContentView(view)
     setWindowConstraints()
-    view.theme = theme
+    setDefaults()
   }
 
   @CheckResult

@@ -37,11 +37,6 @@ internal class DialogLayout(
 ) : FrameLayout(context, attrs) {
 
   var maxHeight: Int = 0
-  var theme: Theme = Theme.LIGHT
-    set(value) {
-      if (field == value) return
-      field = value
-    }
   var debugMode: Boolean = false
 
   private val frameMarginVertical = dimenPx(R.dimen.md_dialog_frame_margin_vertical)

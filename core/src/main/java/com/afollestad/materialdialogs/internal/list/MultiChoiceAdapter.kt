@@ -1,9 +1,9 @@
 package com.afollestad.materialdialogs.internal.list
 
+import android.support.v7.widget.AppCompatCheckBox
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CompoundButton
 import android.widget.TextView
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.R
@@ -39,7 +39,7 @@ internal class MDMultiChoiceViewHolder(
     }
   }
 
-  val controlView: CompoundButton = itemView.findViewById(R.id.md_control)
+  val controlView: AppCompatCheckBox = itemView.findViewById(R.id.md_control)
   val titleView: TextView = itemView.findViewById(R.id.md_title)
 }
 
@@ -77,7 +77,7 @@ internal class MDMultiChoiceAdapter(
     parent: ViewGroup,
     viewType: Int
   ): MDMultiChoiceViewHolder {
-    val listItemView: View = parent.inflate(R.layout.md_listitem_multichoice)
+    val listItemView: View = parent.inflate(dialog.context, R.layout.md_listitem_multichoice)
     return MDMultiChoiceViewHolder(
         listItemView, this, dialog
     )
@@ -93,6 +93,6 @@ internal class MDMultiChoiceAdapter(
   ) {
     holder.controlView.isChecked = currentSelection.contains(position)
     holder.titleView.text = items[position]
-    holder.itemView.background = dialog.getItemSelector(holder.itemView.context)
+    holder.itemView.background = dialog.getItemSelector()
   }
 }

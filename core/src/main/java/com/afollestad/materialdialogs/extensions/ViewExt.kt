@@ -1,5 +1,6 @@
 package com.afollestad.materialdialogs.extensions
 
+import android.content.Context
 import android.support.annotation.DimenRes
 import android.support.annotation.LayoutRes
 import android.view.LayoutInflater
@@ -13,8 +14,11 @@ import android.widget.Button
  */
 
 @Suppress("UNCHECKED_CAST")
-internal fun <R : View> ViewGroup.inflate(@LayoutRes res: Int): R {
-  return LayoutInflater.from(context).inflate(res, this, false) as R
+internal fun <R : View> ViewGroup.inflate(
+  ctxt: Context = context,
+  @LayoutRes res: Int
+): R {
+  return LayoutInflater.from(ctxt).inflate(res, this, false) as R
 }
 
 internal fun <T : View> T.updatePadding(

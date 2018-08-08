@@ -1,14 +1,12 @@
 package com.afollestad.materialdialogs.internal.button
 
 import android.content.Context
-import android.support.v4.content.ContextCompat
 import android.support.v7.widget.AppCompatButton
 import android.util.AttributeSet
 import android.view.View
 import com.afollestad.materialdialogs.R
-import com.afollestad.materialdialogs.Theme
-import com.afollestad.materialdialogs.Theme.LIGHT
 import com.afollestad.materialdialogs.extensions.dimenPx
+import com.afollestad.materialdialogs.extensions.getDrawable
 import com.afollestad.materialdialogs.extensions.updatePadding
 
 /**
@@ -30,17 +28,10 @@ internal class DialogActionButton(
     isFocusable = true
   }
 
-  fun update(
-    theme: Theme,
-    stacked: Boolean
-  ) {
+  fun update(stacked: Boolean) {
     // Selector
-    val backgroundRes: Int = if (stacked) {
-      if (theme == LIGHT) R.drawable.md_item_selector else R.drawable.md_item_selector_dark
-    } else {
-      if (theme == LIGHT) R.drawable.md_btn_selector else R.drawable.md_btn_selector_dark
-    }
-    background = ContextCompat.getDrawable(context, backgroundRes)
+    val selectorAttr = if (stacked) R.attr.md_item_selector else R.attr.md_button_selector
+    background = getDrawable(context, attr = selectorAttr)
 
     // Padding
     val sidePadding = if (stacked) paddingStacked else paddingDefault

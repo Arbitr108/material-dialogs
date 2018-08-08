@@ -2,16 +2,12 @@
 
 package com.afollestad.materialdialogs.extensions
 
-import android.content.Context
-import android.graphics.drawable.Drawable
 import android.support.annotation.ArrayRes
 import android.support.annotation.CheckResult
-import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.R
-import com.afollestad.materialdialogs.Theme.LIGHT
 import com.afollestad.materialdialogs.assertOneSet
 import com.afollestad.materialdialogs.internal.list.MDListAdapter
 import com.afollestad.materialdialogs.internal.list.MDMultiChoiceAdapter
@@ -30,15 +26,7 @@ private fun MaterialDialog.addContentRecyclerView() {
   this.view.addView(this.contentRecyclerView, 1)
 }
 
-internal fun MaterialDialog.getItemSelector(
-  context: Context
-): Drawable? {
-  val resId = when (theme) {
-    LIGHT -> R.drawable.md_item_selector
-    else -> R.drawable.md_item_selected_dark
-  }
-  return ContextCompat.getDrawable(context, resId)
-}
+internal fun MaterialDialog.getItemSelector() = getDrawable(attr = R.attr.md_item_selector)
 
 @CheckResult
 fun MaterialDialog.getListAdapter(): RecyclerView.Adapter<*> {
@@ -55,6 +43,8 @@ fun MaterialDialog.customListAdapter(
   adapter: RecyclerView.Adapter<*>
 ): MaterialDialog {
   addContentRecyclerView()
+  if (this.contentRecyclerView!!.adapter != null)
+    throw IllegalStateException("An adapter has already been set to this dialog.")
   this.contentRecyclerView!!.adapter = adapter
   return this
 }

@@ -2,6 +2,7 @@ package com.afollestad.materialdialogs.internal.main
 
 import android.content.Context
 import android.graphics.Canvas
+import android.support.annotation.ColorInt
 import android.util.AttributeSet
 import android.view.View.MeasureSpec.AT_MOST
 import android.view.View.MeasureSpec.EXACTLY
@@ -45,6 +46,10 @@ internal class DialogTitleLayout(
 
   fun shouldNotBeVisible() =
     iconView.isNotVisible() && titleView.isNotVisible()
+
+  fun setTitleColor(@ColorInt color: Int) {
+    this.titleView.setTextColor(color)
+  }
 
   override fun onMeasure(
     widthMeasureSpec: Int,

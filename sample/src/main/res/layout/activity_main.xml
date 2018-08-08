@@ -1,4 +1,5 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -290,14 +291,6 @@
         android:text="Single Choice, Long Items"
         />
 
-    <Button
-        android:id="@+id/single_choice_disabled_items"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/sample_button_height"
-        android:layout_marginTop="@dimen/sample_button_spacing"
-        android:text="Single Choice + Disabled Items"
-        />
-
     <!-- Multiple Choice Lists -->
 
     <TextView
@@ -322,35 +315,11 @@
         />
 
     <Button
-        android:id="@+id/multiple_choice_limit"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/sample_button_height"
-        android:layout_marginTop="@dimen/sample_button_spacing"
-        android:text="Multiple Choice + Limit Selection"
-        />
-
-    <Button
-        android:id="@+id/multiple_choice_min"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/sample_button_height"
-        android:layout_marginTop="@dimen/sample_button_spacing"
-        android:text="Multiple Choice + Min Selection"
-        />
-
-    <Button
         android:id="@+id/multiple_choice_long_items"
         android:layout_width="match_parent"
         android:layout_height="@dimen/sample_button_height"
         android:layout_marginTop="@dimen/sample_button_spacing"
         android:text="Multiple Choice, Long Items"
-        />
-
-    <Button
-        android:id="@+id/multiple_choice_disabled_items"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/sample_button_height"
-        android:layout_marginTop="@dimen/sample_button_spacing"
-        android:text="Multiple Choice + Disabled Items"
         />
 
     <!-- Action Buttons -->
@@ -395,14 +364,6 @@
     <TextView
         android:text="Miscellaneous"
         style="@style/SampleHeader"
-        />
-
-    <Button
-        android:id="@+id/misc_themed"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/sample_button_height"
-        android:layout_marginTop="@dimen/sample_button_spacing"
-        android:text="Themed Dialogs"
         />
 
     <Button

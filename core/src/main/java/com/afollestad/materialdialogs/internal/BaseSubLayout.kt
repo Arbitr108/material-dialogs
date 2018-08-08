@@ -4,13 +4,11 @@ import android.content.Context
 import android.graphics.Paint
 import android.graphics.Paint.Style.STROKE
 import android.support.annotation.ColorInt
-import android.support.v4.content.ContextCompat
 import android.util.AttributeSet
 import android.view.ViewGroup
 import com.afollestad.materialdialogs.R
-import com.afollestad.materialdialogs.Theme
-import com.afollestad.materialdialogs.Theme.LIGHT
 import com.afollestad.materialdialogs.extensions.dimenPx
+import com.afollestad.materialdialogs.extensions.getColor
 
 internal abstract class BaseSubLayout(
   context: Context,
@@ -18,7 +16,6 @@ internal abstract class BaseSubLayout(
 ) : ViewGroup(context, attrs) {
 
   private val dividerPaint = Paint()
-
   protected val dividerHeight = dimenPx(R.dimen.md_divider_height)
 
   var drawDivider: Boolean = false
@@ -26,8 +23,6 @@ internal abstract class BaseSubLayout(
       field = value
       invalidate()
     }
-  var theme: Theme = LIGHT
-    get() = dialogParent().theme
 
   init {
     setWillNotDraw(false)
@@ -50,8 +45,6 @@ internal abstract class BaseSubLayout(
   ): Paint = dialogParent().debugPaint(color, stroke)
 
   private fun getDividerColor(): Int {
-    val colorRes =
-      if (theme == LIGHT) R.color.md_divider_black else R.color.md_divider_white
-    return ContextCompat.getColor(context, colorRes)
+    return getColor(context, attr = R.attr.md_divider_color)
   }
 }

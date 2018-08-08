@@ -44,6 +44,11 @@ internal fun MaterialDialog.setWindowConstraints() {
   }
 }
 
+internal fun MaterialDialog.setDefaults() {
+  val backgroundColor = getColor(attr = R.attr.colorBackgroundFloating)
+  colorBackground(color = backgroundColor)
+}
+
 internal fun MaterialDialog.addContentScrollView() {
   if (this.contentScrollView != null) {
     return
