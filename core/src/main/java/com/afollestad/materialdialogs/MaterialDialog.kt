@@ -187,9 +187,10 @@ class MaterialDialog(
     return this
   }
 
-  inline fun show(func: MaterialDialog.() -> Unit) {
+  inline fun show(func: MaterialDialog.() -> Unit): MaterialDialog {
     this.func()
     super.show()
+    return this
   }
 
   private fun addContentMessageView(@StringRes res: Int, text: CharSequence?) {
