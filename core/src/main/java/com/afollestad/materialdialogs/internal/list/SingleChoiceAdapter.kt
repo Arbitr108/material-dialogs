@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.R
-import com.afollestad.materialdialogs.extensions.getColorSelector
 import com.afollestad.materialdialogs.extensions.getItemSelector
 import com.afollestad.materialdialogs.extensions.hasActionButtons
 import com.afollestad.materialdialogs.extensions.inflate
