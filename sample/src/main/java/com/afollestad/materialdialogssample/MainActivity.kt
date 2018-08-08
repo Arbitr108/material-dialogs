@@ -1,22 +1,73 @@
 package com.afollestad.materialdialogssample
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.view.Menu
+import android.view.MenuItem
 import com.afollestad.materialdialogs.MaterialDialog
-import com.afollestad.materialdialogs.Theme.DARK
 import com.afollestad.materialdialogs.extensions.checkBoxPrompt
-import com.afollestad.materialdialogs.extensions.colorActionButtons
 import com.afollestad.materialdialogs.extensions.listItems
 import com.afollestad.materialdialogs.extensions.listItemsMultiChoice
 import com.afollestad.materialdialogs.extensions.listItemsSingleChoice
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main.basic
+import kotlinx.android.synthetic.main.activity_main.basic_buttons
+import kotlinx.android.synthetic.main.activity_main.basic_checkbox
+import kotlinx.android.synthetic.main.activity_main.basic_checkbox_buttons
+import kotlinx.android.synthetic.main.activity_main.basic_checkbox_titled
+import kotlinx.android.synthetic.main.activity_main.basic_checkbox_titled_buttons
+import kotlinx.android.synthetic.main.activity_main.basic_icon
+import kotlinx.android.synthetic.main.activity_main.basic_long
+import kotlinx.android.synthetic.main.activity_main.basic_long_buttons
+import kotlinx.android.synthetic.main.activity_main.basic_long_titled
+import kotlinx.android.synthetic.main.activity_main.basic_long_titled_buttons
+import kotlinx.android.synthetic.main.activity_main.basic_titled
+import kotlinx.android.synthetic.main.activity_main.basic_titled_buttons
+import kotlinx.android.synthetic.main.activity_main.buttons_callbacks
+import kotlinx.android.synthetic.main.activity_main.buttons_neutral
+import kotlinx.android.synthetic.main.activity_main.buttons_stacked
+import kotlinx.android.synthetic.main.activity_main.buttons_stacked_checkboxPrompt
+import kotlinx.android.synthetic.main.activity_main.list
+import kotlinx.android.synthetic.main.activity_main.list_buttons
+import kotlinx.android.synthetic.main.activity_main.list_checkPrompt
+import kotlinx.android.synthetic.main.activity_main.list_checkPrompt_buttons
+import kotlinx.android.synthetic.main.activity_main.list_long
+import kotlinx.android.synthetic.main.activity_main.list_long_buttons
+import kotlinx.android.synthetic.main.activity_main.list_long_items
+import kotlinx.android.synthetic.main.activity_main.list_long_items_buttons
+import kotlinx.android.synthetic.main.activity_main.list_long_items_titled
+import kotlinx.android.synthetic.main.activity_main.list_long_items_titled_buttons
+import kotlinx.android.synthetic.main.activity_main.list_long_titled
+import kotlinx.android.synthetic.main.activity_main.list_long_titled_buttons
+import kotlinx.android.synthetic.main.activity_main.list_titled
+import kotlinx.android.synthetic.main.activity_main.list_titled_buttons
+import kotlinx.android.synthetic.main.activity_main.misc_dialog_callbacks
+import kotlinx.android.synthetic.main.activity_main.multiple_choice
+import kotlinx.android.synthetic.main.activity_main.multiple_choice_buttons
+import kotlinx.android.synthetic.main.activity_main.multiple_choice_long_items
+import kotlinx.android.synthetic.main.activity_main.single_choice
+import kotlinx.android.synthetic.main.activity_main.single_choice_buttons
+import kotlinx.android.synthetic.main.activity_main.single_choice_buttons_titled
+import kotlinx.android.synthetic.main.activity_main.single_choice_long_items
+import kotlinx.android.synthetic.main.activity_main.single_choice_titled
 
 /** @author Aidan Follestad (afollestad) */
 class MainActivity : AppCompatActivity() {
 
+  companion object {
+    const val KEY_PREFS = "prefs"
+    const val KEY_DARK_THEME = "dark_theme"
+  }
+
   private val debugMode = false
+  private lateinit var prefs: SharedPreferences
 
   override fun onCreate(savedInstanceState: Bundle?) {
+    prefs = getSharedPreferences(KEY_PREFS, MODE_PRIVATE)
+    setTheme(
+        if (prefs.boolean(KEY_DARK_THEME)) R.style.AppTheme_Dark else R.style.AppTheme
+    )
+
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_main)
 
@@ -405,5 +456,24 @@ class MainActivity : AppCompatActivity() {
         debugMode(debugMode)
       }
     }
+  }
+
+  override fun onCreateOptionsMenu(menu: Menu): Boolean {
+    menuInflater.inflate(R.menu.main, menu)
+    menu.findItem(R.id.dark_theme)
+        .isChecked = prefs.boolean(KEY_DARK_THEME)
+    return super.onCreateOptionsMenu(menu)
+  }
+
+  override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    if (item.itemId == R.id.dark_theme) {
+      val newIsDark = !prefs.boolean(KEY_DARK_THEME)
+      prefs.apply {
+        putBoolean(KEY_DARK_THEME, newIsDark)
+      }
+      recreate()
+      return true
+    }
+    return super.onOptionsItemSelected(item)
   }
 }
