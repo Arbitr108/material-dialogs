@@ -53,6 +53,7 @@ internal class DialogRecyclerView(
     if (adapter == null) return false
     val lm = layoutManager
     val itemCount = adapter!!.itemCount
+    @Suppress("UNREACHABLE_CODE")
     return when (lm) {
       is LinearLayoutManager -> {
         val diff = lm.findLastVisibleItemPosition() - lm.findFirstVisibleItemPosition()
