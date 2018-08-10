@@ -11,6 +11,7 @@ android {
     sourceCompatibility JavaVersion.VERSION_1_8
     targetCompatibility JavaVersion.VERSION_1_8
   }
+
   defaultConfig {
     applicationId "com.afollestad.materialdialogssample"
     minSdkVersion versions.minSdk
@@ -18,21 +19,8 @@ android {
     versionCode versions.publishVersionCode
     versionName versions.publishVersion
   }
-  lintOptions {
-    abortOnError false
-  }
-  buildTypes {
-    release {
-      minifyEnabled false
-      shrinkResources false
-    }
-  }
 }
 
-repositories {
-  jcenter()
-  google()
-}
 dependencies {
   implementation project(':core')
   implementation project(':commons')
@@ -42,3 +30,5 @@ dependencies {
   implementation 'com.android.support:appcompat-v7:' + versions.supportLib
   implementation 'com.android.support:recyclerview-v7:' + versions.supportLib
 }
+
+apply from: '../spotless.gradle'
