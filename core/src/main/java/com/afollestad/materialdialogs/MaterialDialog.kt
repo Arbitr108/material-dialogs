@@ -35,10 +35,10 @@ import com.afollestad.materialdialogs.internal.list.DialogRecyclerView
 typealias DialogCallback = (MaterialDialog) -> Unit
 
 internal fun assertOneSet(
-  a: Int,
+  a: Int?,
   b: Any?
 ) {
-  if (a == 0 && b == null) {
+  if ((a == null || a == 0) && b == null) {
     throw IllegalArgumentException("You must specify a resource ID or literal value.")
   }
 }
@@ -51,7 +51,8 @@ enum class Theme(
 
   companion object {
     fun inferTheme(context: Context): Theme {
-      val isPrimaryDark = getColor(context, attr = android.R.attr.textColorPrimary).isColorDark()
+      val isPrimaryDark =
+        getColor(context = context, attr = android.R.attr.textColorPrimary).isColorDark()
       return if (isPrimaryDark) LIGHT else DARK
     }
   }
@@ -79,7 +80,7 @@ class MaterialDialog(
 
   @CheckResult
   fun MaterialDialog.icon(
-    @DrawableRes iconRes: Int = 0,
+    @DrawableRes iconRes: Int? = null,
     icon: Drawable? = null
   ): MaterialDialog {
     assertOneSet(iconRes, icon)
@@ -93,7 +94,7 @@ class MaterialDialog(
 
   @CheckResult
   fun title(
-    @StringRes textRes: Int = 0,
+    @StringRes textRes: Int? = null,
     text: CharSequence? = null
   ): MaterialDialog {
     assertOneSet(textRes, text)
@@ -107,7 +108,7 @@ class MaterialDialog(
 
   @CheckResult
   fun message(
-    @StringRes textRes: Int = 0,
+    @StringRes textRes: Int? = null,
     text: CharSequence? = null
   ): MaterialDialog {
     addContentScrollView()
@@ -117,7 +118,7 @@ class MaterialDialog(
 
   @CheckResult
   fun positiveButton(
-    @StringRes positiveRes: Int = 0,
+    @StringRes positiveRes: Int? = null,
     positiveText: CharSequence? = null,
     click: ((MaterialDialog) -> (Unit))? = null
   ): MaterialDialog {
@@ -133,7 +134,7 @@ class MaterialDialog(
 
   @CheckResult
   fun negativeButton(
-    @StringRes negativeRes: Int = 0,
+    @StringRes negativeRes: Int? = null,
     negativeText: CharSequence? = null,
     click: ((MaterialDialog) -> (Unit))? = null
   ): MaterialDialog {
@@ -149,7 +150,7 @@ class MaterialDialog(
 
   @CheckResult
   fun neutralButton(
-    @StringRes neutralRes: Int = 0,
+    @StringRes neutralRes: Int? = null,
     neutralText: CharSequence? = null,
     click: ((MaterialDialog) -> (Unit))? = null
   ): MaterialDialog {
@@ -199,7 +200,7 @@ class MaterialDialog(
     return this
   }
 
-  private fun addContentMessageView(@StringRes res: Int, text: CharSequence?) {
+  private fun addContentMessageView(@StringRes res: Int?, text: CharSequence?) {
     if (this.textViewMessage == null) {
       this.textViewMessage = inflate(
           context,

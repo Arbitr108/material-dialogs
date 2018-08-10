@@ -18,7 +18,8 @@ import com.afollestad.materialdialogs.R.dimen
 
 @Suppress("UNCHECKED_CAST")
 internal fun <T> inflate(
-  context: Context, @LayoutRes res: Int,
+  context: Context,
+  @LayoutRes res: Int,
   root: ViewGroup? = null
 ): T {
   return LayoutInflater.from(context).inflate(res, root, false) as T

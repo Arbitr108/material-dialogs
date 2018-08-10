@@ -23,7 +23,7 @@ import com.afollestad.materialdialogs.MaterialDialog
 
 @ColorInt internal fun getColor(
   context: Context,
-  @ColorRes res: Int = 0,
+  @ColorRes res: Int? = null,
   @AttrRes attr: Int? = null
 ): Int {
   if (attr != null) {
@@ -34,21 +34,26 @@ import com.afollestad.materialdialogs.MaterialDialog
       a.recycle()
     }
   }
-  return ContextCompat.getColor(context, res)
+  return ContextCompat.getColor(context, res ?: 0)
 }
 
 @ColorInt internal fun MaterialDialog.getColor(
-  @ColorRes res: Int = 0,
+  @ColorRes res: Int? = null,
   @AttrRes attr: Int? = null
 ): Int = getColor(context, res, attr)
 
-internal fun MaterialDialog.getString(@StringRes res: Int, @StringRes fallback: Int = 0): CharSequence? {
-  return context.resources.getText(if (res == 0) fallback else res)
+internal fun MaterialDialog.getString(
+  @StringRes res: Int? = null,
+  @StringRes fallback: Int? = null
+): CharSequence? {
+  val resourceId = res ?: (fallback ?: 0)
+  if (resourceId == 0) return null
+  return context.resources.getText(resourceId)
 }
 
 internal fun getDrawable(
   context: Context,
-  @DrawableRes res: Int = 0,
+  @DrawableRes res: Int? = null,
   @AttrRes attr: Int? = null,
   fallback: Drawable? = null
 ): Drawable? {
@@ -64,18 +69,20 @@ internal fun getDrawable(
       a.recycle()
     }
   }
-  return ContextCompat.getDrawable(context, res) ?: fallback
+  if (res == null) return fallback
+  return ContextCompat.getDrawable(context, res)
 }
 
 internal fun MaterialDialog.getDrawable(
-  @DrawableRes res: Int = 0,
+  @DrawableRes res: Int? = null,
   @AttrRes attr: Int? = null,
   fallback: Drawable? = null
 ): Drawable? {
   return getDrawable(context, res = res, attr = attr, fallback = fallback)
 }
 
-internal fun MaterialDialog.getStringArray(@ArrayRes res: Int): Array<CharSequence> {
+internal fun MaterialDialog.getStringArray(@ArrayRes res: Int?): Array<CharSequence> {
+  if (res == null) return emptyArray()
   return context.resources.getTextArray(res)
 }
 
@@ -86,7 +93,7 @@ internal fun MaterialDialog.hasActionButtons(): Boolean {
 
 internal fun MaterialDialog.setIcon(
   imageView: ImageView,
-  @DrawableRes iconRes: Int,
+  @DrawableRes iconRes: Int?,
   icon: Drawable?
 ) {
   val drawable = getDrawable(res = iconRes, fallback = icon)
@@ -101,7 +108,7 @@ internal fun MaterialDialog.setIcon(
 
 internal fun MaterialDialog.setText(
   textView: TextView,
-  @StringRes textRes: Int = 0,
+  @StringRes textRes: Int? = null,
   text: CharSequence? = null,
   @StringRes fallback: Int = 0,
   click: ((MaterialDialog) -> (Unit))? = null,

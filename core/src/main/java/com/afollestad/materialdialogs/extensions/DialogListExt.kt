@@ -55,7 +55,7 @@ fun MaterialDialog.customListAdapter(
 
 @CheckResult
 fun MaterialDialog.listItems(
-  @ArrayRes arrayRes: Int = 0,
+  @ArrayRes arrayRes: Int? = null,
   array: Array<CharSequence>? = null,
   click: ((dialog: MaterialDialog, index: Int, text: CharSequence) -> (Unit))? = null
 ): MaterialDialog {
@@ -66,7 +66,7 @@ fun MaterialDialog.listItems(
 
 @CheckResult
 fun MaterialDialog.listItemsSingleChoice(
-  @ArrayRes arrayRes: Int = 0,
+  @ArrayRes arrayRes: Int? = null,
   array: Array<CharSequence>? = null,
   initialSelection: Int = -1,
   selectionChanged: ((MaterialDialog, Int, CharSequence) -> (Boolean))? = null
@@ -82,7 +82,7 @@ fun MaterialDialog.listItemsSingleChoice(
 
 @CheckResult
 fun MaterialDialog.listItemsMultiChoice(
-  @ArrayRes arrayRes: Int = 0,
+  @ArrayRes arrayRes: Int? = null,
   array: Array<CharSequence>? = null,
   initialSelection: Array<Int> = emptyArray(),
   selectionChanged: ((MaterialDialog, Array<Int>, Array<CharSequence>) -> (Boolean))? = null

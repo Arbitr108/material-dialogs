@@ -4,7 +4,7 @@
   <color name="md_btn_selected">#33969696</color>
   <color name="md_btn_selected_dark">#40CBCBCB</color>
 
-  <color name="md_divider_black">#20000000</color>
-  <color name="md_divider_white">#20FFFFFF</color>
+  <color name="md_divider_light_theme">#E0E0E0</color>
+  <color name="md_divider_dark_theme">#1F1F1F</color>
 
 </resources>
