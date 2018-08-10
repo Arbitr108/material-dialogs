@@ -34,7 +34,7 @@ dependencies {
 }
 
 publish {
-    userOrg = 'novoda'
+    userOrg = 'drummer-aidan'
     groupId = 'com.afollestad.material-dialogs'
     artifactId = 'core'
     publishVersion = versions.publishVersion
