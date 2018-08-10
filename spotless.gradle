@@ -9,8 +9,7 @@ spotless {
   }
   kotlin {
     ktlint().userData(['indent_size': '2', 'continuation_indent_size': '2'])
-    licenseHeaderFile 'LICENSE.md'
-
+    licenseHeader '/* Licensed under Apache-2.0 */'
     trimTrailingWhitespace()
     endWithNewline()
   }

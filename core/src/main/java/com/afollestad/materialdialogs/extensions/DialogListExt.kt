@@ -1,4 +1,8 @@
-@file:Suppress("unused")
+/*
+ * Licensed under Apache-2.0
+ *
+ * Designed an developed by Aidan Follestad (afollestad)
+ */
 
 package com.afollestad.materialdialogs.extensions
 
