@@ -6,7 +6,6 @@ ext.versions = [
     publishVersionCode: 179,
     gradlePlugin      : '3.1.4',
     spotlessPlugin    : '3.14.0',
-    findBugs          : '3.0.2',
     bintrayRelease    : '0.8.1',
     kotlin            : '1.2.60',
     supportLib        : '28.0.0-beta01'
