@@ -21,8 +21,8 @@ import android.view.View.MeasureSpec.AT_MOST
 import android.view.View.MeasureSpec.EXACTLY
 import android.view.View.MeasureSpec.UNSPECIFIED
 import android.widget.FrameLayout
+import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.R
-import com.afollestad.materialdialogs.Theme
 import com.afollestad.materialdialogs.extensions.dimenPx
 import com.afollestad.materialdialogs.extensions.updatePadding
 import com.afollestad.materialdialogs.internal.button.DialogActionButtonLayout
@@ -50,10 +50,10 @@ internal class DialogLayout(
   private val frameMarginVerticalLess = dimenPx(R.dimen.md_dialog_frame_margin_vertical_less)
 
   private val contentView: View
-    get() = rootLayout.getChildAt(1)
+    get() = getChildAt(1)
   private var debugPaint: Paint? = null
 
-  internal lateinit var rootLayout: DialogLayout
+  internal lateinit var dialog: MaterialDialog
   internal lateinit var titleLayout: DialogTitleLayout
   internal lateinit var buttonsLayout: DialogActionButtonLayout
 
@@ -63,7 +63,6 @@ internal class DialogLayout(
 
   override fun onFinishInflate() {
     super.onFinishInflate()
-    rootLayout = findViewById(R.id.md_root)
     titleLayout = findViewById(R.id.md_title_layout)
     buttonsLayout = findViewById(R.id.md_button_layout)
   }

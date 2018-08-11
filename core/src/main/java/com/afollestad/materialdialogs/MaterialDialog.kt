@@ -66,6 +66,11 @@ class MaterialDialog(
   internal val view: DialogLayout = inflate(context, R.layout.md_dialog_base)
   internal var autoDismiss: Boolean = true
     private set
+  
+  // The base context is what we pass into the super constructor above.
+  // It doesn't contain any attributes of the Activity which contains the dialog,
+  // just internal attributes from library light/dark themes.
+  internal var baseContext: Context = super.getContext()
 
   internal var textViewMessage: TextView? = null
   internal var contentScrollView: DialogScrollView? = null
@@ -74,6 +79,7 @@ class MaterialDialog(
 
   init {
     setContentView(view)
+    this.view.dialog = this
     setWindowConstraints()
     setDefaults()
   }
