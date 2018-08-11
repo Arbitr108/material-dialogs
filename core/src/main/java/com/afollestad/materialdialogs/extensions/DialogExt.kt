@@ -74,11 +74,12 @@ internal fun getDrawable(
 }
 
 internal fun MaterialDialog.getDrawable(
+  ctxt: Context = context,
   @DrawableRes res: Int? = null,
   @AttrRes attr: Int? = null,
   fallback: Drawable? = null
 ): Drawable? {
-  return getDrawable(context, res = res, attr = attr, fallback = fallback)
+  return getDrawable(ctxt, res = res, attr = attr, fallback = fallback)
 }
 
 internal fun MaterialDialog.getStringArray(@ArrayRes res: Int?): Array<CharSequence> {

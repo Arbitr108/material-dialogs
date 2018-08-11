@@ -30,7 +30,8 @@ private fun MaterialDialog.addContentRecyclerView() {
   this.view.addView(this.contentRecyclerView, 1)
 }
 
-internal fun MaterialDialog.getItemSelector() = getDrawable(attr = R.attr.md_item_selector)
+internal fun MaterialDialog.getItemSelector() =
+  getDrawable(context = baseContext, attr = R.attr.md_item_selector)
 
 @CheckResult
 fun MaterialDialog.getListAdapter(): RecyclerView.Adapter<*> {

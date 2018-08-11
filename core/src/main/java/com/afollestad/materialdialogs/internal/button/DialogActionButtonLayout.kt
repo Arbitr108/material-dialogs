@@ -94,7 +94,7 @@ internal class DialogActionButtonLayout(
 
     // Buttons plus any spacing around that makes up the "frame"
     for (button in visibleButtons) {
-      button.update(stackButtons)
+      button.update(dialogParent().dialog.baseContext, stackButtons)
       if (stackButtons) {
         button.measure(
             MeasureSpec.makeMeasureSpec(parentWidth, MeasureSpec.EXACTLY),

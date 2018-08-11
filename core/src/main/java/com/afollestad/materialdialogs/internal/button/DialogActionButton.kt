@@ -34,10 +34,10 @@ internal class DialogActionButton(
     isFocusable = true
   }
 
-  fun update(stacked: Boolean) {
+  fun update(ctxt: Context, stacked: Boolean) {
     // Selector
     val selectorAttr = if (stacked) R.attr.md_item_selector else R.attr.md_button_selector
-    background = getDrawable(context, attr = selectorAttr)
+    background = getDrawable(ctxt, attr = selectorAttr)
 
     // Padding
     val sidePadding = if (stacked) paddingStacked else paddingDefault
